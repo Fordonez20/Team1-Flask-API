@@ -2,11 +2,29 @@ version: 2.1
 
 orbs:
   python: circleci/python@1.2
+  aws-ecr: circleci/aws-ecr@7.3.0
 
 workflows:
   Flask-Workflow:
     jobs:
       - build-and-test
+
+      - aws-ecr/build-and-push-image:
+          region: AWS_REGION
+          account-url: AWS_ECR_ACCOUNT_URL
+          repo: ${AWS_RESOURCE_NAME_PREFIX}
+          tag: ${CIRCLE_BUILD_NUM}
+          create-repo: true
+          dockerfile: Dockerfile
+          no-output-timeout: 20m
+          path: ./
+          skip-when-tags-exist: false
+          requires:
+            - build-and-test
+
+      #ecr account url: aws_account_id.dkr.ecr.region.amazonaws.com
+      #035764549640.dkr.ecr.us-east-1.amazonaws.com
+      #resource name prefix: team1-flask-api-repo
 
 jobs:
   build-and-test:
@@ -19,5 +37,7 @@ jobs:
       - run: pip install -r ./requirements.txt
 
       #- run: pytest
+
+  
 
   
