@@ -15,8 +15,11 @@ jobs:
 
     steps:
       - checkout
+      
       - python/install-packages:
         pkg-manager: pip
+        pip-dependency-file: requirements.txt
+
       - run:
         name: Run Tests
         command: pytest
