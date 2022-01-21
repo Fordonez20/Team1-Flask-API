@@ -12,7 +12,7 @@ dynamoTableName = 'Type-Attack-LeaderBoard'
 
 @app.route("/")
 def hello():
-    return "Hello World I am the Flask API!"
+    return "Hello World I am the Flask API! Use a Specific Route!"
 
 
 @app.route("/getRecord<string:name><string:wpm><string:accuracy>")
