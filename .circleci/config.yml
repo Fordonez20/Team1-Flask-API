@@ -16,7 +16,7 @@ jobs:
     steps:
       - checkout
 
-      - run: pip install requirements.txt
+      - run: pip install ./requirements.txt
 
       - run: pytest
 
